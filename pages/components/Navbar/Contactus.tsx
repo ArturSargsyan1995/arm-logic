@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
+import { sendEmail } from "@/pages/lib/api";
 
 
 const Contactusform = () => {
@@ -17,8 +18,13 @@ const Contactusform = () => {
         setInputValues(prevState => ({ ...prevState, [name]: value }));
     }
 
-    const handleClick = () => {
-        alert(`Name: ${inputValues.input1}, Email-address: ${inputValues.input2}, Message: ${inputValues.input3}`);
+    const handleClick = async () => {
+        const data = {
+            "name": inputValues.input1,
+            "email": inputValues.input2,
+            "message": inputValues.input3
+        }
+        await sendEmail(data);
         setIsOpen(false)
     }
 
